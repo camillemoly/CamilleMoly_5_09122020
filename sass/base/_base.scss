@@ -1,0 +1,19 @@
+body{
+    margin: auto;
+    // no margin top/bottom for the page and center the page horizontally when the navigator > 1440 px
+    max-width: 1440px; // to keep the model appearance
+    // display: flex; // to distribute all the containers fairly whatever the height of the device
+    // flex-direction: column;
+    // justify-content: space-between;
+}
+
+main{
+    background-color: $color-primary;
+}
+
+a{
+    color: black;
+    &:hover{
+        text-decoration: none;
+    }
+}

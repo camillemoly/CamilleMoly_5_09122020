@@ -1,0 +1,13 @@
+.nav{
+    &__logo{
+        height: 40px;
+        width: auto;
+    }
+    &__link{
+        font-size: 1.2rem;
+        font-weight: 500;
+        &:hover{
+            color: #925CF9!important;
+        }
+    }
+}

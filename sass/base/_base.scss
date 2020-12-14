@@ -1,6 +1,6 @@
 body{
     margin: auto;
-    // no margin top/bottom for the page and center the page horizontally when the navigator > 1440 px
+    min-height: 100vh;
     max-width: 1440px; // to keep the model appearance
     // display: flex; // to distribute all the containers fairly whatever the height of the device
     // flex-direction: column;

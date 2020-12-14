@@ -2,6 +2,16 @@
     .card{
         width: 40%!important;
     }
+    .product{
+        flex-direction: row!important;
+        justify-content: space-between;
+        &__image-container{
+            width: 50%!important;
+        }
+        &__infos{
+            width: 45%;
+        }
+    }
 }
 
 @media (min-width: 1024px) {

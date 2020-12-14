@@ -9,14 +9,16 @@ fetch("http://localhost:3000/api/cameras/")
         // }
         // console.log(ids);
         for (let i in response) { // For each camera contained in the JSON object (no matter how many)
+            console.log(response[i]["lenses"]);
             let newDiv = document.createElement("div"); // Create new card, add class .card and put it in cards__list div
             newDiv.classList.add("card");
             cardsList.appendChild(newDiv);
-            let newLink = document.createElement("a");
-            newLink.setAttribute("href", "http://localhost:3000/api/cameras/" + response[i]["_id"]);
+            let newLink = document.createElement("a"); // Insert in the div link, img, description with name & price
+            newLink.setAttribute("href", "produit.html?id=" + response[i]["_id"] + "&imageUrl=" + response[i]["imageUrl"] + "&name=" + response[i]["name"] + "&price=" + response[i]["price"] + "&description=" + response[i]["description"] + "&lenses=" + response[i]["lenses"]);
+            // newLink.setAttribute("href", "http://localhost:3000/api/cameras/" + response[i]["_id"]);
             newLink.classList.add("card__link");
             newDiv.appendChild(newLink);
-            let newImage = document.createElement("img"); // Create 
+            let newImage = document.createElement("img"); 
             newImage.classList.add("card__image");
             newLink.appendChild(newImage);
             let newDescription = document.createElement("div");
@@ -28,13 +30,13 @@ fetch("http://localhost:3000/api/cameras/")
             let newPrice = document.createElement("p");
             newPrice.classList.add("card__price");
             newDescription.appendChild(newPrice);
-            fetch("http://localhost:3000/api/cameras/" + response[i]["_id"])
+            fetch("http://localhost:3000/api/cameras/" + response[i]["_id"]) // Call elements dependings on url
             .then(response => response.json())
             // .then(response => console.log(response))
             .then(response => {
-                newImage.src = response["imageUrl"];
-                newName.innerHTML = response["name"];
-                newPrice.innerHTML = response["price"];
+                newImage.src = response["imageUrl"]; // Take imageUrl for the img src
+                newName.innerHTML = response["name"]; // Display the name of response
+                newPrice.innerHTML = response["price"] + "€"; // Display the price of response
             })
             .catch(error => console.log("ERREUR : " + error));
         }

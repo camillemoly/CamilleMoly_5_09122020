@@ -1,10 +1,10 @@
 body{
-    margin: auto;
+    margin: 0;
     min-height: 100vh;
     max-width: 1440px; // to keep the model appearance
-    // display: flex; // to distribute all the containers fairly whatever the height of the device
-    // flex-direction: column;
-    // justify-content: space-between;
+    display: flex; // to distribute all the containers fairly whatever the height of the device
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 main{

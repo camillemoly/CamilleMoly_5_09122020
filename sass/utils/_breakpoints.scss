@@ -1,10 +1,14 @@
 @media (min-width: 769px) {
+    #product, .cart{
+        height: $main-height;
+    }
     .card{
         width: 40%!important;
     }
-    .product{
+    #product{
         flex-direction: row!important;
         justify-content: space-between;
+        width: 100%;
         &__image-container{
             width: 50%!important;
         }

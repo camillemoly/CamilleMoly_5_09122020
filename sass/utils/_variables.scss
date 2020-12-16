@@ -1,2 +1,5 @@
 $color-primary: #282a36;
 $color-header-shadow: #DDDDDD;
+$nav-height: 10.05vh;
+$footer-height: 8.52vh;
+$main-height: 100vh - ($nav-height + $footer-height);

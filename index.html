@@ -16,8 +16,8 @@
 </head>
 
 <body>
-  <div>
-    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+  <div class="container-fluid">
+    <nav class="row navbar navbar-light bg-light navbar-expand-lg">
       <a class="navbar-brand" href="#"><img src="./images/logo.png" class="nav__logo" alt="" /></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,22 +29,22 @@
             <a class="nav-link nav__link" href="index.html">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav__link" href="panier.html">Panier</a>
+            <a class="nav-link nav__link" href="panier.html">Panier <span class="cart-quantity"></span></a>
           </li>
         </ul>
       </div>
     </nav>
-    <main>
-      <section class="cards">
-        <div class="cards__title">
-          <h1 class="cards__title__text">Ori-caméras</h1>
-          <i class="fas fa-camera-retro cards__title__icon"></i>
+    <main class="row">
+      <section id="cards">
+        <div id="cards__title">
+          <h1 id="cards__title__text">Ori-caméras</h1>
+          <i id="cards__title__icon" class="fas fa-camera-retro"></i>
         </div>
-        <div id="cards__list" class="cards__list"></div>
+        <div id="cards__list"></div>
       </section>
     </main>
-    <footer class="page-footer font-small bg-light">
-      <div class="footer-copyright text-center py-3">
+    <footer class="row page-footer font-small bg-light footer">
+      <div class="footer-copyright py-3">
         © 2020 Copyright:
         <a href="index.html">Orinoco.fr</a>
       </div>
@@ -58,7 +58,7 @@
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/af1cd2eb9e.js" crossorigin="anonymous"></script>
-  <script src="./js/index.js"></script>
+  <script type="module" src="./js/index.js"></script>
 </body>
 
 </html>

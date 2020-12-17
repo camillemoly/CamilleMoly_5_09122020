@@ -1,61 +1,37 @@
-let cartTitle = document.getElementsByClassName("cart__title")[0];
-let cartCategory = document.getElementsByClassName("cart__category")[0];
-let cartButton = document.getElementsByClassName("cart__button")[0];
-let cartDiv = document.getElementsByClassName("cart")[0];
+import { checkCartQuantity, cartButton } from "./panier_fonctions.js"; // Import function and variable necessary
+import { Contact } from "./Contact.js";
 
-function getCartItems() {
-    if (localStorage.length === 0 ) {
-        cartTitle.innerHTML = "Votre panier est vide.";
-        cartButton.classList.add("none");
-        cartCategory.classList.add("none");
-        while (cartDiv.lastChild.id !== 'cart__title') {
-            cartDiv.removeChild(cartDiv.lastChild);
-        }
-    } else {
-        for(let i=0; i < localStorage.length; i++) {
-            let productInCart = localStorage.getItem(localStorage.key(i));
-            let productInCartObject = JSON.parse(productInCart);
-            let newDiv = document.createElement("div");
-            newDiv.classList.add("cart__product");
-            cartDiv.appendChild(newDiv);
-            let newImage = document.createElement("img");
-            newImage.classList.add("cart__product__image");
-            newImage.src = productInCartObject["imageUrl"];
-            newDiv.appendChild(newImage);
-            let newName = document.createElement("p");
-            newName.classList.add("cart__product__name");
-            newName.innerHTML = productInCartObject["name"];
-            newDiv.appendChild(newName);
-            let newPrice = document.createElement("p");
-            let productPrice = productInCartObject["price"];
-            newPrice.classList.add("cart__product__price");
-            newPrice.innerHTML = productPrice + "€";
-            newDiv.appendChild(newPrice);
-            let newQuantity = document.createElement("p");
-            let productQuantity = productInCartObject["quantity"];
-            newQuantity.classList.add("cart__product__quantity");
-            newQuantity.innerHTML = productQuantity;
-            newDiv.appendChild(newQuantity);
-            let newTotal = document.createElement("p");
-            newTotal.classList.add("cart__product__total");
-            newTotal.innerHTML = productPrice * productQuantity + "€";
-            newDiv.appendChild(newTotal);
-        }
-    }
-}
+let formButton = document.getElementById("form__button");
 
-getCartItems();
+checkCartQuantity(); // Use the function
 
-cartButton.addEventListener("click", function(){
+cartButton.addEventListener("click", function(){ // Clear localStorage and check if the cart is empty or not
     localStorage.clear();
-    getCartItems();
-    // document.location.reload();
-    // fetch(window.location.href);
+    checkCartQuantity();
 });
 
-// console.log(localStorage);
-// console.log(localStorage.key(0));
-// console.log(localStorage.getItem(localStorage.key(0)));
-// console.log(typeof localStorage.getItem(localStorage.key(0)));
-// console.log(JSON.parse(localStorage.getItem(localStorage.key(0))));
-// console.log(typeof JSON.parse(localStorage.getItem(localStorage.key(0))));
+formButton.addEventListener("click", function(){ // take form values and product ids in cart and post it at the API
+    let firstName = document.getElementById("firstName").value; // take input values
+    let lastName = document.getElementById("lastName").value;
+    let address = document.getElementById("address").value;
+    let city = document.getElementById("city").value;
+    let email = document.getElementById("email").value;
+    let contactInfos = new Contact(firstName, lastName, address, city, email); // create an object of contact infos
+    let products = []; // create products array and push each id contained in the localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        let id = localStorage.key(i);
+        products.push(id);
+    }
+    let order = {contactInfos, products}; // create order object
+    let orderJson = JSON.stringify(order); // convert this object to JSON
+    console.log(orderJson);
+    // let requestOptions = {
+    //     method: "POST"
+    // }
+    // fetch("http://localhost:3000/api/cameras/" + orderJson, requestOptions)
+    // .then(response => console.log(response))
+    // .catch(error => console.log(error));
+    
+    // document.location.href = "confirmation.html";
+});
+

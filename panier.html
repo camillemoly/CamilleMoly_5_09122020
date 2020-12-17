@@ -17,7 +17,7 @@
 <body>
     <div class="container-fluid">
         <nav class="row navbar navbar-light bg-light navbar-expand-lg">
-            <a class="navbar-brand" href="#"><img src="./images/logo.png" class="nav__logo" alt=""></a>
+            <a class="navbar-brand" href="index.html"><img src="./images/logo.png" class="nav__logo" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,14 +34,48 @@
             </div>
         </nav>
         <main class="row">
-            <section class="cart">
-                <h1 id="cart__title" class="cart__title">Panier</h1>
-                <button class="btn btn-light cart__button">Vider le panier</button>
-                <div class="cart__category">
-                    <p class="cart__category__product">Produit</p>
-                    <p class="cart__category__price">Prix</p>
-                    <p class="cart__category__quantity">Quantité</p>
-                    <p class="cart__category__total">Total</p>
+            <section id="cart">
+                <h1 id="cart__title"></h1>
+                <div id=cart__list>
+                    <button id="cart__button" class="btn btn-light none">Vider le panier</button>
+                    <div id="cart__category" class="none">
+                        <p id="cart__category__product">Produit</p>
+                        <p id="cart__category__price">Prix</p>
+                        <p id="cart__category__quantity">Quantité</p>
+                        <p id="cart__category__total">Total</p>  
+                    </div>
+                </div>
+                <div id="form" class="none">
+                    <h2 id="form__title">Formulaire de commande</h2>
+                    <form id="form__contact">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="firstName">Prénom</label>
+                                <input id="firstName" type="text" class="form-control" placeholder="Prénom" pattern="^[a-zA-ZÀ-ÿ]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                            </div>
+                            <div class="col">
+                                <label for="lastName">Nom</label>
+                                <input id="lastName" type="text" class="form-control" placeholder="Nom" pattern="^[a-zA-ZÀ-ÿ]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="address">Adresse</label>
+                                <input id="address" type="text" class="form-control" placeholder="Adresse" required>
+                            </div>
+                            <div class="col">
+                                <label for="city">Ville</label>
+                                <input id="city" type="text" class="form-control" placeholder="Ville" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="email">Email</label>
+                                <input id="email" type="email" class="form-control" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <button id="form__button" type="button" class="btn btn-light">Envoyer</button>
+                    </form>
                 </div>
             </section>
         </main>

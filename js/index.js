@@ -7,7 +7,7 @@ fetch("http://localhost:3000/api/cameras/")
             let newDiv = document.createElement("div"); // Create new card, add class .card and put it in cards__list div
             newDiv.classList.add("card");
             cardsList.appendChild(newDiv);
-            let newLink = document.createElement("a"); // Insert in the div link, img, description with name & price
+            let newLink = document.createElement("a"); // Insert in the div link, img product, description with name & price product
             newLink.setAttribute("href", "produit.html?id=" + response[i]["_id"]);
             newLink.classList.add("card__link");
             newDiv.appendChild(newLink);
@@ -26,9 +26,9 @@ fetch("http://localhost:3000/api/cameras/")
             fetch("http://localhost:3000/api/cameras/" + response[i]["_id"]) // Call elements dependings on url
             .then(response => response.json())
             .then(response => {
-                newImage.src = response["imageUrl"]; // Take imageUrl for the img src
+                newImage.src = response["imageUrl"]; // Take imageUrl response for the img src
                 newName.innerHTML = response["name"]; // Display the name of response
-                newPrice.innerHTML = response["price"] + "€"; // Display the price of response
+                newPrice.innerHTML = (response["price"] / 100).toFixed(2) + "€"; // Display the price of response
             })
             .catch(error => console.log("ERREUR : " + error));
         }

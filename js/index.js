@@ -1,3 +1,5 @@
+import { convertToFloatNumber } from "./fonction-float.js";
+
 let cardsList = document.getElementById("cards__list");
 
 fetch("http://localhost:3000/api/cameras/")
@@ -17,18 +19,18 @@ fetch("http://localhost:3000/api/cameras/")
             let newDescription = document.createElement("div");
             newDescription.classList.add("card__description")
             newLink.appendChild(newDescription);
-            let newName = document.createElement("p");
+            let newName = document.createElement("span");
             newName.classList.add("card__name");
             newDescription.appendChild(newName);
-            let newPrice = document.createElement("p");
+            let newPrice = document.createElement("span");
             newPrice.classList.add("card__price");
             newDescription.appendChild(newPrice);
             fetch("http://localhost:3000/api/cameras/" + response[i]["_id"]) // Call elements dependings on url
             .then(response => response.json())
             .then(response => {
-                newImage.src = response["imageUrl"]; // Take imageUrl response for the img src
-                newName.innerHTML = response["name"]; // Display the name of response
-                newPrice.innerHTML = (response["price"] / 100).toFixed(2) + "€"; // Display the price of response
+                newImage.src = response["imageUrl"]; // Take imageUrl of response for the img src
+                newName.textContent = response["name"]; // Display reponse name
+                newPrice.textContent = convertToFloatNumber(response["price"]) + "€"; // Display reponse price with 2 decimals
             })
             .catch(error => console.log("ERREUR : " + error));
         }

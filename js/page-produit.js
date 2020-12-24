@@ -1,36 +1,37 @@
 import { Product } from "./Product.js";
+import { convertToFloatNumber } from "./fonction-float.js";
 
 let searchParams = new URLSearchParams(window.location.search); //use URLSearchParams constructor to get values of url parameters
 let productId = searchParams.get("id"); // get id product
 let productImageUrl;
 let productName;
 let productPrice;
-let selectDiv;
+let imageDiv = document.getElementById("product__image");
+let nameDiv = document.getElementById("product__name");
+let descriptionDiv = document.getElementById("product__description");
+let priceDiv = document.getElementById("product__price");
+let selectDiv = document.getElementById("product__options");
 let addToCartButton = document.getElementById("product__button");
 let productConfirm = document.getElementById("product__confirm");
 
 
 fetch("http://localhost:3000/api/cameras/" + productId) // GET camera according to the id
-.then(response => response.json()) // request's body in JSON format convert to an Javascript object
+.then(response => response.json()) // response in JSON format convert to an object and return a promise
 .then(response => {
-    let imageDiv = document.getElementById("product__image"); // take img div
+    // give imageUrl to img src
     productImageUrl = response["imageUrl"]
-    imageDiv.src = productImageUrl; // give imageUrl to img src
-
-    let nameDiv = document.getElementById("product__name"); // take name div
+    imageDiv.src = productImageUrl;
+    // display product name
     productName = response["name"];
-    nameDiv.innerHTML = productName; // display product name
-
-    let descriptionDiv = document.getElementById("product__description");
-    descriptionDiv.innerHTML = response["description"];
-
-    let priceDiv = document.getElementById("product__price");
+    nameDiv.textContent = productName;
+    // display description
+    descriptionDiv.textContent = response["description"];
+    // display price and get a number with 2 decimals
     productPrice = response["price"];
-    priceDiv.innerHTML = (productPrice / 100).toFixed(2) + "€"; // get a number with 2 decimals
-
+    priceDiv.textContent = convertToFloatNumber(productPrice) + "€";
+    // create array of lenses and create option from this array
     let arrayLenses = response["lenses"];
-    selectDiv = document.getElementById("product__options");
-    for(let i in arrayLenses) { // create select option from length of arrayLenses
+    for(let i in arrayLenses) {
         let newOption = document.createElement("option");
         newOption.setAttribute("value", arrayLenses[i])
         newOption.text = arrayLenses[i];
@@ -40,22 +41,29 @@ fetch("http://localhost:3000/api/cameras/" + productId) // GET camera according 
 .catch(error => console.log("ERREUR : " + error));
 
 addToCartButton.addEventListener("click", function() {
-    let productOption = selectDiv.options[selectDiv.selectedIndex].value; // take the value of selected lense
-    let customProduct = productId + "-" + productOption;
-    if (productOption === "") { // if a lense is not selected, prevent the product from being added to the cart
-        productConfirm.innerHTML = "Veuillez renseigner le champ d'options !";
-    } else if (localStorage.getItem(customProduct) === null) { // (localStorage.key(productId) == null)
+    // take the value of selected lense and create an id according to the selected lens
+    let productOptionSelected = selectDiv.options[selectDiv.selectedIndex].value; 
+    let customProductId = productId + "-" + productOptionSelected;
+    // if a lense is not selected, prevent the product from being added to the cart
+    if (productOptionSelected === "") {
+        productConfirm.textContent = "Veuillez renseigner le champ d'options !";
+    } 
+    // if the product is not yet in the cart, create product, add quantity 1, add it in the cart and display confirm message
+    else if (localStorage.getItem(customProductId) === null) {
         let productQuantity = 1;
-        let productAdded = new Product(productId, productImageUrl, productName, productPrice, productOption, productQuantity); // create product
+        let productAdded = new Product(productId, productImageUrl, productName, productPrice, productOptionSelected, productQuantity);
         let productAddedJson = JSON.stringify(productAdded); // convert to JSON format to be added in cart
-        localStorage.setItem(customProduct, productAddedJson); // add product in cart
-        productConfirm.innerHTML = "Produit ajouté au panier !"; // confirm the addition
-    } else if (localStorage.key(customProduct) !== null){
-        let productUpdate = JSON.parse(localStorage.getItem(customProduct));
-        let quantityUpdate = productUpdate["quantity"];
+        localStorage.setItem(customProductId, productAddedJson);
+        productConfirm.textContent = "Produit ajouté au panier !";
+    }
+    // if the product is already in the cart, get the product, increment its price,
+    // add the update product in the cart and display confirm message 
+    else if (localStorage.key(customProductId) !== null){
+        let productToUpdate = JSON.parse(localStorage.getItem(customProductId));
+        let quantityUpdate = productToUpdate["quantity"];
         quantityUpdate++;
-        productUpdate["quantity"] = quantityUpdate;
-        let productUpdateJson = JSON.stringify(productUpdate);
-        localStorage.setItem(customProduct, productUpdateJson);
-        productConfirm.innerHTML = "Produit ajouté au panier !";
+        productToUpdate["quantity"] = quantityUpdate;
+        let productToUpdateJSon = JSON.stringify(productToUpdate);
+        localStorage.setItem(customProductId, productToUpdateJSon);
+        productConfirm.textContent = "Produit ajouté au panier !";
 }});

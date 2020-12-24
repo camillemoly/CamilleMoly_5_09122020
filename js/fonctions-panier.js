@@ -1,90 +1,110 @@
+import { convertToFloatNumber } from "./fonction-float.js";
+
 let cartTitle = document.getElementById("cart__title");
-let cartCategory = document.getElementById("cart__category");
 let cartList = document.getElementById("cart__list");
-let cartButton = document.getElementById("cart__button");
-let cartForm = document.getElementById("form");
+let cartClearButton = document.getElementById("cart__button");
 let cartTotal = document.getElementById("cart__total");
-let newProduct;
-let newInfos;
+let cartForm = document.getElementById("form");
+let newProductDiv;
 let newImage;
-let newDescription;
+let newInfos;
 let newName;
 let newLense;
 let newPrice;
+let newCustomOptions;
 let newQuantity;
+let newRemoveButton;
 let newTotal;
-let sumTotal = 0;
+let totalPriceProduct;
+let totalPriceCart= 0;
 
-function emptyCart() { // Display message "Votre panier est vide" and remove button, category and form
-    cartTitle.innerHTML = "Votre panier est vide.";
+function emptyCart() { // Display title "Votre panier est vide" and remove button, total and form
+    cartTitle.textContent = "Votre panier est vide.";
     cartList.remove();
     cartTotal.remove();
     cartForm.remove();
 }
 
-function filledCart(){  // Display message "Panier", button, category titles and form
-    cartTitle.innerHTML = "Panier";
-    cartButton.classList.remove("none");
-    cartCategory.classList.remove("none");
+function filledCart(){  // Display title "Panier", button and form
+    cartTitle.textContent = "Panier";
+    cartClearButton.classList.remove("none");
     cartForm.classList.remove("none");
 }
 
-function createCartItems() { // Create cart product
-    // newProduct in cardList
-    newProduct = document.createElement("div");
-    newProduct.classList.add("product");
-    cartList.appendChild(newProduct);
-    // newInfos in newProduct
-    newInfos = document.createElement("div");
-    newInfos.classList.add("product__infos");
-    newProduct.appendChild(newInfos);
-    // newImage in newInfos
+function createCartProduct() { // Create product in cart div
+    // newProductDiv in cardList
+    newProductDiv = document.createElement("div");
+    newProductDiv.classList.add("productInCart");
+    cartList.appendChild(newProductDiv);
+    // newImage in newProductDiv
     newImage = document.createElement("img");
-    newImage.classList.add("product__infos__image");
-    newInfos.appendChild(newImage);
-    // newDescription in newInfos
-    newDescription = document.createElement("div");
-    newDescription.classList.add("product__infos__description");
-    newInfos.appendChild(newDescription);
-    // newName in newDescription
-    newName = document.createElement("p");
-    newName.classList.add("product__infos__description-name");
-    newDescription.appendChild(newName);
-    // newLense in newDescription
-    newLense = document.createElement("p");
-    newLense.classList.add("product__infos__description-lense");
-    newDescription.appendChild(newLense);
-    // newPrice in newDescription
-    newPrice = document.createElement("p");
-    newPrice.classList.add("product__price");
-    newProduct.appendChild(newPrice);
-    // newQuantity in newProduct
-    newQuantity = document.createElement("p");
-    newQuantity.classList.add("product__quantity");
-    newProduct.appendChild(newQuantity);
-    // newTotal in newProduct
-    newTotal = document.createElement("p");
-    newTotal.classList.add("product__total");
-    newProduct.appendChild(newTotal);
+    newImage.classList.add("productInCart__image");
+    newProductDiv.appendChild(newImage);
+    // newInfos in newProductDiv
+    newInfos = document.createElement("div");
+    newInfos.classList.add("productInCart__infos");
+    newProductDiv.appendChild(newInfos);
+    // newName in newInfos
+    newName = document.createElement("span");
+    newName.classList.add("productInCart__infos__name");
+    newInfos.appendChild(newName);
+    // newLense in newInfos
+    newLense = document.createElement("span");
+    newLense.classList.add("productInCart__infos__lense");
+    newInfos.appendChild(newLense);
+    // newPrice in newInfos
+    newPrice = document.createElement("span");
+    newPrice.classList.add("productInCart__infos__price");
+    newInfos.appendChild(newPrice);
+    // newCustomOptions in newProductDiv
+    newCustomOptions = document.createElement("div");
+    newCustomOptions.classList.add("productInCart__custom");
+    newProductDiv.appendChild(newCustomOptions);
+    // newQuantity in newCustomOptions
+    newQuantity = document.createElement("span");
+    newQuantity.classList.add("productInCart__custom__quantity");
+    newCustomOptions.appendChild(newQuantity);
+    // newButton in newCustomOptions
+    newRemoveButton = document.createElement("button");
+    newRemoveButton.classList.add("productInCart__custom__removeButton", "btn", "btn-dark");
+    newRemoveButton.textContent = "Retirer";
+    newCustomOptions.appendChild(newRemoveButton);
+    // newTotal in newProductDiv
+    newTotal = document.createElement("span");
+    newTotal.classList.add("productInCart__custom__total");
+    newCustomOptions.appendChild(newTotal);
 };
 
 function getCartItems() {
-    filledCart(); 
+    filledCart(); // display filled cart elements
     for(let i=0; i < localStorage.length; i++) { // For each element in localStorage, create product and get its elements
-        createCartItems();
+        createCartProduct();
         let productInCart = localStorage.getItem(localStorage.key(i));
         let productInCartObject = JSON.parse(productInCart);
         newImage.src = productInCartObject["imageUrl"];
-        newName.innerHTML = productInCartObject["name"];
-        newLense.innerHTML = "Lentille: " + productInCartObject["lense"];
+        newName.textContent = productInCartObject["name"];
+        newLense.textContent = "Lentille: " + productInCartObject["lense"];
         let productPrice = productInCartObject["price"];
-        newPrice.innerHTML = (productPrice / 100).toFixed(2) + "€";
+        newPrice.textContent = convertToFloatNumber(productPrice) + "€";
         let productQuantity = productInCartObject["quantity"];
-        newQuantity.innerHTML = productQuantity;
-        newTotal.innerHTML = ((productPrice / 100) * productQuantity).toFixed(2) + "€";
-        sumTotal += (productPrice / 100) * productQuantity;
+        newQuantity.textContent = "Qté: " + productQuantity;
+        totalPriceProduct = productPrice * productQuantity;
+        newTotal.textContent = "Total: " + convertToFloatNumber(totalPriceProduct) + "€";
+        totalPriceCart+= totalPriceProduct;
+        newRemoveButton.addEventListener("click", function(e){ // remove product div and item in localStorage and update cart total price
+            // let thisProduct = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            // let thisPrice = thisProduct["price"];
+            // let thisQuantity = thisProduct["quantity"];
+            // totalPriceCart= totalPriceCart- (thisPrice * thisQuantity);
+            // cartTotal.textContent = "Sous-total: " + (totalPriceCart/ 100).toFixed(2) + "€";
+            // e.target.parentNode.parentNode.remove();
+            // localStorage.removeItem(localStorage.key(i));
+            // if (localStorage.length === 0 ) {
+            //     emptyCart()
+            // }
+        });
     }
-    cartTotal.innerHTML = "Total: " + sumTotal.toFixed(2) + "€";
+    cartTotal.textContent = "Sous-total: " + convertToFloatNumber(totalPriceCart) + "€";
 }
 
 function checkCartQuantity() { // Check if localStorage is empty or filled and acts accordingly
@@ -95,4 +115,8 @@ function checkCartQuantity() { // Check if localStorage is empty or filled and a
     }
 }
 
-export { checkCartQuantity, cartButton }; // Export function and variable necessary
+function isValid(value) { // function which checks if the value of form input doesn't contain numbers
+    return /^[a-zA-ZÀ-ÿ]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(value);
+}
+
+export { checkCartQuantity, isValid, cartClearButton, totalPriceCart}; // Export necessary function and variables

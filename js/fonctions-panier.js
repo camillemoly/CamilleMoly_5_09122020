@@ -81,6 +81,7 @@ function getCartItems() {
         createCartProduct();
         let productInCart = localStorage.getItem(localStorage.key(i));
         let productInCartObject = JSON.parse(productInCart);
+        let thisId = localStorage.key(i);
         newImage.src = productInCartObject["imageUrl"];
         newName.textContent = productInCartObject["name"];
         newLense.textContent = "Lentille: " + productInCartObject["lense"];
@@ -92,16 +93,17 @@ function getCartItems() {
         newTotal.textContent = "Total: " + convertToFloatNumber(totalPriceProduct) + "€";
         totalPriceCart+= totalPriceProduct;
         newRemoveButton.addEventListener("click", function(e){ // remove product div and item in localStorage and update cart total price
-            // let thisProduct = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            // let thisPrice = thisProduct["price"];
-            // let thisQuantity = thisProduct["quantity"];
-            // totalPriceCart= totalPriceCart- (thisPrice * thisQuantity);
-            // cartTotal.textContent = "Sous-total: " + (totalPriceCart/ 100).toFixed(2) + "€";
-            // e.target.parentNode.parentNode.remove();
-            // localStorage.removeItem(localStorage.key(i));
-            // if (localStorage.length === 0 ) {
-            //     emptyCart()
-            // }
+            let thisProduct = JSON.parse(localStorage.getItem(thisId));
+            let thisPrice = thisProduct["price"];
+            let thisQuantity = thisProduct["quantity"];
+            totalPriceCart -= (thisPrice * thisQuantity);
+            console.log(totalPriceCart);
+            e.target.parentNode.parentNode.remove();
+            cartTotal.textContent = "Sous-total: " + convertToFloatNumber(totalPriceCart) + "€";
+            localStorage.removeItem(thisId);
+            if (localStorage.length === 0 ) {
+                emptyCart()
+            }
         });
     }
     cartTotal.textContent = "Sous-total: " + convertToFloatNumber(totalPriceCart) + "€";

@@ -16,7 +16,7 @@
 
 <body>
     <div class="container-fluid">
-        <nav class="row navbar navbar-light bg-light navbar-expand-lg">
+        <nav class="row navbar navbar-light bg-light navbar-expand-md nav">
             <a class="navbar-brand" href="index.html"><img src="./images/logo.png" class="nav__logo" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,28 +24,29 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link nav__link" href="index.html">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav__link" href="panier.html">Panier <span class="cart-quantity"></span></a>
+                        <a class="nav-link nav__link" href="panier.html">Panier</a>
                     </li>
                 </ul>
             </div>
         </nav>
         <main class="row">
             <section id="product">
-                <div id="product__image-container">
-                    <img id="product__image">
-                </div> 
+                <img id="product__image" src="#" alt="appareil photo">
                 <div id="product__infos">
-                    <h1 id="product__name"></h1>
+                    <h1 id="product__name">Produit</h1>
                     <p id="product__price"></p>
                     <p id="product__description"></p>
                     <select id="product__options" required>
-                        <option id="product__options__null" value="" disabled selected>Sélectionner une option</option>
+                        <option value="" disabled selected>Sélectionner une option</option>
                     </select>
-                    <button id="product__button" class="btn btn-light">Ajouter au panier <i class="fas fa-shopping-bag"></i></button>
+                    <button id="product__button" class="btn btn-dark">
+                        <span>Ajouter au panier</span>
+                        <i id="product__icon" class="fas fa-shopping-bag"></i>
+                    </button>
                     <p id="product__confirm"></p>
                 </div>
             </section>

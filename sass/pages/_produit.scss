@@ -1,22 +1,24 @@
 #product{
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     min-height: $main-height;
-    padding: 20px;
-    color: white;
-    &__image-container{
-        width: 100%;
-    }
+    padding: 30px;
+    text-align: justify;
+    color: $color-primary;
     &__image{
-        height: 100%;
         width: 100%;
-        object-fit: contain;
     }
-    &__button{
+    &__price{
+        font-size: 1.5rem;
+    }
+    &__button, &__option{
+        width: 100%;
         margin-top: 10px;
     }
+    &__icon{
+        margin-left: 10px;
+    }
     &__confirm{
-        transition: all ease-in-out;
+        margin-top: 10px;
+        text-align: center;
     }
 }

@@ -1,0 +1,46 @@
+#cards{
+    flex-direction: column;
+    align-items: center;
+    min-height: $main-height; // the page takes at least the height of the screen
+    padding: 30px;
+    color: $color-primary;
+    &__title{
+        align-items: center;
+        font-size: 2rem;
+        &__text{
+            font-size: inherit;
+        }
+        &__icon{
+            margin-left: 10px;
+        }
+    }
+    &__list{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.card{
+    flex-direction: column;
+    height: 250px;
+    width: 100%;
+    margin: 10px;
+    border: none;
+    &__link{ // to entend the link across the entire page
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+    &__image{
+        height: 70%;
+        width: 100%;
+        object-fit: cover;
+    }
+    &__description{
+        flex-direction: column;
+        font-weight: 500;
+    }
+    &__name, &__price{
+        margin-top: 5px;
+    }
+}

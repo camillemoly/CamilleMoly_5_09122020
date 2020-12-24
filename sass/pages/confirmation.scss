@@ -1,3 +1,34 @@
 #confirmation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-height: $main-height;
+    width: 100%;
+    padding: 20px;
+    &__text{
+        margin: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+#confirmation__title, #summary__title{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.summary{
+    &__product{
+        display: flex;
+        align-items: center;
+        margin: 10px;
+        padding: 10px;
+        border-bottom: 1px solid black;
+    }
+    &__image{
+        height: 120px;
+    }
+    &__name{
+        margin-left: 10px;
+    }
 }

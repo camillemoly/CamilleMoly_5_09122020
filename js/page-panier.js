@@ -1,7 +1,16 @@
-import { checkCartQuantity, isValid, cartClearButton, totalPriceCart } from "./fonctions-panier.js"; // Import function and variable necessary
+// Import function and variable necessary
+import { checkCartQuantity, cartClearButton, totalPriceCart } from "./fonctions-panier.js";
+import { nameValid, emailValid, specialCaractersValid, onlyWhitespacesInvalid } from "./validation-form.js";
 import { Contact } from "./Contact.js";
 
+let firstName = document.getElementById("firstName");
+let lastName = document.getElementById("lastName");
+let address = document.getElementById("address");
+let city = document.getElementById("city");
+let email = document.getElementById("email");
 let formButton = document.getElementById("form__button");
+let invalidMessage = document.getElementById("invalid__message");
+invalidMessage.style.color = "red";
 
 // Use the function to check if cart is empty or not
 checkCartQuantity(); 
@@ -12,20 +21,22 @@ cartClearButton.addEventListener("click", function(){
     checkCartQuantity();
 });
 
-// Take form values and product ids in cart and post it at the API
+// When button "Envoyer" is clicked
 formButton.addEventListener("click", function(){
-    let firstName = document.getElementById("firstName").value; // take input values
-    let lastName = document.getElementById("lastName").value;
-    let address = document.getElementById("address").value;
-    let city = document.getElementById("city").value;
-    let email = document.getElementById("email").value;
-    if ((isValid(firstName) === false) || (isValid(lastName) === false)) { // if first/last name contain number, display invalid message
-        let invalidMessage = document.getElementById("invalid__message");
-        invalidMessage.textContent = "Les champs prénom/nom ne doivent pas contenir de chiffres.";
-        invalidMessage.style.color = "red";
-    } else { // if all form inputs are valid, create contact object & products array, set it to API and get response
-        let contact = new Contact(firstName, lastName, address, city, email); // create an object of contact infos
-        let products = []; // create products array and push each id contained in the localStorage
+    // Verifiy form inputs values
+    if (firstName.validity.valueMissing || lastName.validity.valueMissing || address.validity.valueMissing || city.validity.valueMissing || email.validity.valueMissing) {
+        invalidMessage.textContent = "Tous les champs sont requis.";
+    } else if (specialCaractersValid(firstName.value) === false || specialCaractersValid(lastName.value) === false || specialCaractersValid(address.value) === false || specialCaractersValid(city.value) === false) {
+        invalidMessage.textContent = "Les champs prénom/nom/adresse/ville ne doivent pas comporter de caractères spéciaux.";
+    } else if (nameValid(firstName.value) === false || nameValid(lastName.Value) === false) {
+        invalidMessage.textContent = "Les champs nom/prénom doivent être composés de lettres et ne doivent pas contenir de chiffres.";
+    } else if (emailValid(email.value) === false) {
+        invalidMessage.innerHTML = "Le champ email doit être composé de cette manière <em>xxxxxxxx@xxxxx.xxx</em>";
+    } else if (onlyWhitespacesInvalid(firstName.value) || onlyWhitespacesInvalid(lastName.value) || onlyWhitespacesInvalid(address.value) || onlyWhitespacesInvalid(city.value) || onlyWhitespacesInvalid(email.value)) {
+        invalidMessage.textContent = "Les champs ne doivent pas contenir uniquement des espaces.";
+    } else { // if all form inputs are valid, create contact object & products array, set them to API and get response
+        let contact = new Contact(firstName.value, lastName.value, address.value, city.value, email.value); // create contact object
+        let products = []; // create products array and push each id of camera contained in the localStorage
         for (let i = 0; i < localStorage.length; i++) {
             let id = JSON.parse(localStorage.getItem(localStorage.key(i)))["id"];
             products.push(id);

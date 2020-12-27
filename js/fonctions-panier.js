@@ -117,8 +117,4 @@ function checkCartQuantity() { // Check if localStorage is empty or filled and a
     }
 }
 
-function isValid(value) { // function which checks if the value of form input doesn't contain numbers
-    return /^[a-zA-ZÀ-ÿ]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(value);
-}
-
-export { checkCartQuantity, isValid, cartClearButton, totalPriceCart}; // Export necessary function and variables
+export { checkCartQuantity, cartClearButton, totalPriceCart}; // Export necessary function and variables

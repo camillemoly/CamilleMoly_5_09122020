@@ -1,6 +1,6 @@
 // Import function and variable necessary
 import { checkCartQuantity, cartClearButton, totalPriceCart } from "./fonctions-panier.js";
-import { nameValid, emailValid, specialCaractersValid, onlyWhitespacesInvalid } from "./validation-form.js";
+import { nameValid, emailValid, specialCharactersValid, onlyWhitespacesInvalid } from "./validation-form.js";
 import { Contact } from "./Contact.js";
 
 let firstName = document.getElementById("firstName");
@@ -26,7 +26,7 @@ formButton.addEventListener("click", function(){
     // Verifiy form inputs values
     if (firstName.validity.valueMissing || lastName.validity.valueMissing || address.validity.valueMissing || city.validity.valueMissing || email.validity.valueMissing) {
         invalidMessage.textContent = "Tous les champs sont requis.";
-    } else if (specialCaractersValid(firstName.value) === false || specialCaractersValid(lastName.value) === false || specialCaractersValid(address.value) === false || specialCaractersValid(city.value) === false) {
+    } else if (specialCharactersValid(firstName.value) === false || specialCharactersValid(lastName.value) === false || specialCharactersValid(address.value) === false || specialCharactersValid(city.value) === false) {
         invalidMessage.textContent = "Les champs prénom/nom/adresse/ville ne doivent pas comporter de caractères spéciaux.";
     } else if (nameValid(firstName.value) === false || nameValid(lastName.Value) === false) {
         invalidMessage.textContent = "Les champs nom/prénom doivent être composés de lettres et ne doivent pas contenir de chiffres.";
@@ -56,7 +56,11 @@ formButton.addEventListener("click", function(){
             document.location.href = "confirmation.html?firstName=" + response["contact"]["firstName"] + "&lastName=" + 
             response["contact"]["lastName"] + "&orderId=" + response["orderId"] + "&total=" + totalPriceCart + "&ids=" + products;
         })
-        .catch(error => console.log("ERREUR : " + error));
+        .catch(error => {
+            console.log(error);
+            alert("Erreur de serveur, tentative de reconnnexion...");
+            setTimeout(function(){document.location.reload()}, 1000);
+        });
         localStorage.clear(); // clear localStorage
     }
 });

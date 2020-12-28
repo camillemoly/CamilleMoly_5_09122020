@@ -32,7 +32,11 @@ fetch("http://localhost:3000/api/cameras/")
                 newName.textContent = response["name"]; // Display reponse name
                 newPrice.textContent = convertToFloatNumber(response["price"]) + "€"; // Display reponse price with 2 decimals
             })
-            .catch(error => console.log("ERREUR : " + error));
+            .catch(error => console.log(error));
         }
     })
-    .catch(error => console.log("ERREUR : " + error));
+    .catch(error => {
+        console.log(error);
+        alert("Erreur de serveur, tentative de reconnnexion...");
+        setTimeout(function(){document.location.reload()}, 1000);
+    });

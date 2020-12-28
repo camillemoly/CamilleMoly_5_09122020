@@ -26,5 +26,9 @@ for (let i in orderProducts) {
         orderProductImage.src = response["imageUrl"];
         orderProductName.textContent = response["name"];
     })
-    .catch(error => console.log("ERREUR: " + error));
+    .catch(error => {
+        console.log(error);
+        alert("Erreur de serveur, tentative de reconnnexion...");
+        setTimeout(function(){document.location.reload()}, 1000);
+    });
 }

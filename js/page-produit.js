@@ -38,7 +38,11 @@ fetch("http://localhost:3000/api/cameras/" + productId) // GET camera according 
         selectDiv.add(newOption);
     }
 })
-.catch(error => console.log("ERREUR : " + error));
+.catch(error => {
+    console.log(error);
+    alert("Erreur de serveur, tentative de reconnnexion...");
+    setTimeout(function(){document.location.reload()}, 1000);
+});
 
 addToCartButton.addEventListener("click", function() {
     // take the value of selected lense and create an id according to the selected lens

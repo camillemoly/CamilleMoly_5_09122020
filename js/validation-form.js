@@ -8,7 +8,7 @@ function emailValid(value) {
     return regex.test(value);
 }
 
-function specialCaractersValid(value) {
+function specialCharactersValid(value) {
     let regex = /^[^@&"()!_$*€£`+=\/;?#]+$/;
     return regex.test(value);
 }
@@ -18,4 +18,4 @@ function onlyWhitespacesInvalid(value) {
     return regex.test(value);
 }
 
-export { nameValid, emailValid, specialCaractersValid, onlyWhitespacesInvalid }; 
+export { nameValid, emailValid, specialCharactersValid, onlyWhitespacesInvalid }; 

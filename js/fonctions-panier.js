@@ -97,16 +97,15 @@ function getCartItems() {
             let thisPrice = thisProduct["price"];
             let thisQuantity = thisProduct["quantity"];
             totalPriceCart -= (thisPrice * thisQuantity);
-            console.log(totalPriceCart);
             e.target.parentNode.parentNode.remove();
-            cartTotal.textContent = "Sous-total: " + convertToFloatNumber(totalPriceCart) + "€";
+            cartTotal.textContent = "Total: " + convertToFloatNumber(totalPriceCart) + "€";
             localStorage.removeItem(thisId);
             if (localStorage.length === 0 ) {
                 emptyCart()
             }
         });
     }
-    cartTotal.textContent = "Sous-total: " + convertToFloatNumber(totalPriceCart) + "€";
+    cartTotal.textContent = "Total: " + convertToFloatNumber(totalPriceCart) + "€";
 }
 
 function checkCartQuantity() { // Check if localStorage is empty or filled and acts accordingly

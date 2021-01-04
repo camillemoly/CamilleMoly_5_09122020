@@ -3,7 +3,7 @@ import { convertToFloatNumber } from "./fonction-float.js";
 let cardsList = document.getElementById("cards__list");
 
 fetch("http://localhost:3000/api/cameras/")
-    .then(response => response.json()) // Return an JSON object
+    .then(response => response.json()) // Return an JavaScript object
     .then(response => {
         for (let i in response) { // For each camera contained in the JSON object (no matter how many)
             let newDiv = document.createElement("div"); // Create new card, add class .card and put it in cards__list div

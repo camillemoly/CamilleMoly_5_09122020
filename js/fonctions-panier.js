@@ -16,7 +16,7 @@ let newQuantity;
 let newRemoveButton;
 let newTotal;
 let totalPriceProduct;
-let totalPriceCart= 0;
+let totalPriceCart = 0;
 
 function emptyCart() { // Display title "Votre panier est vide" and remove button, total and form
     cartTitle.textContent = "Votre panier est vide.";

@@ -32,10 +32,14 @@
     padding: 10px;
     border-bottom: 1px solid $color-primary;
     color: $color-primary;
-    &__image{
+    &__link{
         height: 120px;
-        width: auto;
-        object-fit: contain;
+        width: 240px;
+        &__image{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     }
     &__infos{
         display: flex;

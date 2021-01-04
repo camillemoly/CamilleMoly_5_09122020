@@ -7,6 +7,7 @@ let cartTotal = document.getElementById("cart__total");
 let cartForm = document.getElementById("form");
 let newProductDiv;
 let newImage;
+let newImageLink;
 let newInfos;
 let newName;
 let newLense;
@@ -36,10 +37,14 @@ function createCartProduct() { // Create product in cart div
     newProductDiv = document.createElement("div");
     newProductDiv.classList.add("productInCart");
     cartList.appendChild(newProductDiv);
-    // newImage in newProductDiv
+    // newImageLink in newProductDiv
+    newImageLink = document.createElement("a");
+    newImageLink.classList.add("productInCart__link");
+    newProductDiv.appendChild(newImageLink);
+    // newImage in newImageLink
     newImage = document.createElement("img");
-    newImage.classList.add("productInCart__image");
-    newProductDiv.appendChild(newImage);
+    newImage.classList.add("productInCart__link__image");
+    newImageLink.appendChild(newImage);
     // newInfos in newProductDiv
     newInfos = document.createElement("div");
     newInfos.classList.add("productInCart__infos");
@@ -82,6 +87,7 @@ function getCartItems() {
         let productInCart = localStorage.getItem(localStorage.key(i));
         let productInCartObject = JSON.parse(productInCart);
         let thisId = localStorage.key(i);
+        newImageLink.setAttribute("href", "produit.html?id=" + productInCartObject["id"]);
         newImage.src = productInCartObject["imageUrl"];
         newName.textContent = productInCartObject["name"];
         newLense.textContent = "Lentille: " + productInCartObject["lense"];

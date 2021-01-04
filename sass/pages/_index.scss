@@ -12,6 +12,7 @@
         }
         &__icon{
             margin-left: 10px;
+            margin-bottom: 18px;
         }
     }
     &__list{
@@ -26,6 +27,7 @@
     width: 100%;
     margin: 10px;
     border: none;
+    background-color: transparent;
     &__link{ // to entend the link across the entire page
         display: block;
         height: 100%;

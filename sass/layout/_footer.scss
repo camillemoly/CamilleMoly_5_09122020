@@ -1,5 +1,11 @@
 .footer{
     display: flex;
-    justify-content: center;
-    box-shadow: 0px -2px 6px 0px #282A36;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 56px;
+    box-shadow: 0px -2px 6px 0px $color-primary;
+    & a{
+        margin: 0 10px;
+    }
 }

@@ -63,7 +63,7 @@ addToCartButton.addEventListener("click", function() {
         localStorage.setItem(customProductId, productAddedJson);
         productConfirm.style.opacity = "1";
         productConfirm.textContent = "Produit ajouté au panier.";
-        productConfirm.style.color = "#8452e1";
+        productConfirm.style.color = "#4e00df";
         setTimeout(function(){productConfirm.style.opacity = "0"}, 1000);
     }
     // if the product is already in the cart, get the product, increment its price,
@@ -77,6 +77,6 @@ addToCartButton.addEventListener("click", function() {
         localStorage.setItem(customProductId, productToUpdateJSon);
         productConfirm.style.opacity = "1";
         productConfirm.textContent = "Produit ajouté au panier.";
-        productConfirm.style.color = "#8452e1";
+        productConfirm.style.color = "#4e00df";
         setTimeout(function(){productConfirm.style.opacity = "0"}, 1000);
 }});

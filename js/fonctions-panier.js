@@ -20,20 +20,20 @@ let newTotal;
 let totalPriceProduct;
 let totalPriceCart = 0;
 
-function emptyCart() { // Display title "Votre panier est vide" and remove button, total and form
+function displayEmptyCartPage() { // Display title "Votre panier est vide" and remove button, total and form
     cartTitle.textContent = "Votre panier est vide.";
     cartHomeButton.classList.remove("none");
     cartList.remove();
     cartTotal.remove();
     cartForm.remove();
-}
+};
 
-function filledCart(){  // Display title "Panier", button and form
+function displayCartElements(){  // Display title "Panier", button and form
     cartTitle.textContent = "Panier";
     cartHomeButton.classList.add("none");
     cartClearButton.classList.remove("none");
     cartForm.classList.remove("none");
-}
+};
 
 function createCartProduct() { // Create product in cart div
     // newProductDiv in cardList
@@ -83,8 +83,7 @@ function createCartProduct() { // Create product in cart div
     newCustomOptions.appendChild(newTotal);
 };
 
-function getCartItems() {
-    filledCart(); // display filled cart elements
+function displayCartProducts() {
     for(let i=0; i < localStorage.length; i++) { // For each element in localStorage, create product and get its elements
         createCartProduct();
         let productInCart = localStorage.getItem(localStorage.key(i));
@@ -101,6 +100,7 @@ function getCartItems() {
         totalPriceProduct = productPrice * productQuantity;
         newTotal.textContent = "Total: " + convertToFloatNumber(totalPriceProduct) + "€";
         totalPriceCart+= totalPriceProduct;
+        cartTotal.textContent = "Total: " + convertToFloatNumber(totalPriceCart) + "€";
         newRemoveButton.addEventListener("click", function(e){ // remove product div and item in localStorage and update cart total price
             let thisProduct = JSON.parse(localStorage.getItem(thisId));
             let thisPrice = thisProduct["price"];
@@ -110,19 +110,23 @@ function getCartItems() {
             cartTotal.textContent = "Total: " + convertToFloatNumber(totalPriceCart) + "€";
             localStorage.removeItem(thisId);
             if (localStorage.length === 0 ) {
-                emptyCart()
+                displayEmptyCartPage()
             }
         });
     }
-    cartTotal.textContent = "Total: " + convertToFloatNumber(totalPriceCart) + "€";
-}
+};
+
+function displayFilledCartPage() {
+    displayCartElements(); // display filled cart elements
+    displayCartProducts();
+};
 
 function checkCartQuantity() { // Check if localStorage is empty or filled and acts accordingly
     if (localStorage.length === 0 ) {
-        emptyCart()
+        displayEmptyCartPage();
     } else {
-        getCartItems()
+        displayFilledCartPage();
     }
-}
+};
 
 export { checkCartQuantity, cartClearButton, totalPriceCart}; // Export necessary function and variables

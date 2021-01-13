@@ -3,6 +3,13 @@
     width: 100%;
     padding: 20px;
     color: $color-primary;
+    &__homeButton{
+        display: block;
+        margin: auto;
+        & a{
+            color: white;
+        }
+    }
     &__title{
         text-align: center;
     }

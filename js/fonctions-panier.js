@@ -2,6 +2,7 @@ import { convertToFloatNumber } from "./fonction-float.js";
 
 let cartTitle = document.getElementById("cart__title");
 let cartList = document.getElementById("cart__list");
+let cartHomeButton = document.getElementById("cart__homeButton");
 let cartClearButton = document.getElementById("cart__button");
 let cartTotal = document.getElementById("cart__total");
 let cartForm = document.getElementById("form");
@@ -21,6 +22,7 @@ let totalPriceCart = 0;
 
 function emptyCart() { // Display title "Votre panier est vide" and remove button, total and form
     cartTitle.textContent = "Votre panier est vide.";
+    cartHomeButton.classList.remove("none");
     cartList.remove();
     cartTotal.remove();
     cartForm.remove();
@@ -28,6 +30,7 @@ function emptyCart() { // Display title "Votre panier est vide" and remove butto
 
 function filledCart(){  // Display title "Panier", button and form
     cartTitle.textContent = "Panier";
+    cartHomeButton.classList.add("none");
     cartClearButton.classList.remove("none");
     cartForm.classList.remove("none");
 }
